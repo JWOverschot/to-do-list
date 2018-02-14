@@ -1,17 +1,46 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>TO DO LIST</title>
-	<!-- <link rel="stylesheet" href=""> -->
-</head>
-<body>
-	<h1>TO-DO Lists</h1>
-	<?php foreach ($lists as $list): ?>
+<h1>TO-DO Lists</h1>
 
-		<h3><?php echo $list['Title']; ?></h3>
-		
-	<?php endforeach; ?>
-</body>
-</html>
+<?php
+	$currentList = 0;
+	$tasksArray = [];
+	$title = '';
+	$listArray = [];
+
+	class ListList {
+	    function ListList($title, $descriptions) {
+	        $this->title = $title;
+	        $this->descriptions = $descriptions;
+	    }
+	}
+
+	foreach ($lists as $list):
+		if ($currentList != $list['ListID']) {
+			// set the previus list in an array
+			if ($currentList != 0) {
+				array_push($listArray, new ListList($title, $tasksArray));
+				$tasksArray = [];
+			}
+
+			$title = $list['ListTitle'];
+
+			$currentList = $list['ListID'];
+		}
+		array_push($tasksArray, $list['TaskDescription']);
+	endforeach;
+
+foreach ($listArray as $list): ?>
+	<div class="row">
+		<div class="col s12 m6">
+			<div class="card blue-grey darken-1">
+				<div class="card-content white-text">
+					<span class="card-title"><?= $list->title;?></span>
+					<ul>
+						<?php foreach ($list->descriptions as $task): ?>
+						<li><?= $task ?></li>
+						<?php endforeach; ?>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+<?php endforeach; ?>

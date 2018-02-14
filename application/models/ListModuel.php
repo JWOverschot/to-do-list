@@ -7,7 +7,9 @@ class ListModuel extends CI_Model {
 
 	public function get_lists()
 	{
-		$query = $this->db->get('lists');
+		$this->db->from('lists');
+		$this->db->join('tasks', 'lists.ListID = tasks.ListID', 'left outer');
+		$query = $this->db->get();
 		return $query->result_array();
 	}
 }
