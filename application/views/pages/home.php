@@ -27,9 +27,9 @@
 		}
 		array_push($tasksArray, $list['TaskDescription']);
 	endforeach;
-
-foreach ($listArray as $list): ?>
-	<div class="row">
+?>
+<div class="row">
+	<?php foreach ($listArray as $list): ?>
 		<div class="col s12 m6">
 			<div class="card blue-grey darken-1">
 				<div class="card-content white-text">
@@ -42,5 +42,5 @@ foreach ($listArray as $list): ?>
 				</div>
 			</div>
 		</div>
-	</div>
-<?php endforeach; ?>
+	<?php endforeach; ?>
+</div>
