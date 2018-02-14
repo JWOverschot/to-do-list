@@ -12,6 +12,8 @@ class Pages extends CI_Controller {
         {
                 $data['lists'] = $this->ListModuel->get_lists();
 
+                $this->load->view('templates/header');
                 $this->load->view('pages/' . $page, $data);
+                $this->load->view('templates/footer');
         }
 }
