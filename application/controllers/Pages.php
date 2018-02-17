@@ -32,4 +32,10 @@ class Pages extends CI_Controller {
 			$this->ListModuel->set_list();
 		}
 	}
+
+	public function delete($id)
+	{
+		header('Location:'.base_url());
+		$this->ListModuel->delete_list($id);
+	}
 }

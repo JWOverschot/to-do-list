@@ -50,7 +50,13 @@ endforeach;
 		<div class="col s12 m6 xl4">
 			<div class="card yellow darken-1">
 				<div class="card-content black-text" id="list_<?= $list->listId ?>">
-					<span class="card-title" contenteditable="true"><?= $list->title;?></span>
+					<div class="row">
+						<span class="card-title col s10" contenteditable="true"><?= $list->title;?></span>
+						<a class="black-text col s2 dropdown-button" href='#' data-activates='dropdown_<?= $list->listId ?>'><i class="material-icons waves-effect round">more_vert</i></a>
+						<ul id='dropdown_<?= $list->listId ?>' class='dropdown-content'>
+							<li><a href="<?= base_url()?>delete/<?= $list->listId ?>">Delete</a></li>
+						</ul>
+					</div>
 					<?php if ($list->tasks[0]->taskId != null ) { ?>
 					<ul>
 						<?php foreach ($list->tasks as $task): ?>

@@ -27,6 +27,12 @@ class ListModuel extends CI_Model {
 		return $this->db->insert('lists', $data);
 	}
 
+	public function delete_list($id)
+	{
+		$this->db->where('ListID', $id);
+		$this->db->delete('lists');	
+	}
+
 	public function delete_empty_tasks()
 	{
 		// when a task has no description it has to be deleted
