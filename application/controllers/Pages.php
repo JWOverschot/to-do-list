@@ -28,14 +28,14 @@ class Pages extends CI_Controller {
 
 		if ($this->form_validation->run() !== FALSE)
 		{
-			header('Location:'.base_url());
 			$this->ListModuel->set_list();
+			header('Location:'.base_url());
 		}
 	}
 
 	public function delete($id)
 	{
-		header('Location:'.base_url());
 		$this->ListModuel->delete_list($id);
+		header('Location:'.base_url());
 	}
 }

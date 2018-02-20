@@ -63,8 +63,12 @@ endforeach;
 							<li id="task_<?= $task->taskId ?>">
 								<input type="checkbox" class="filled-in" id="task-checkbox_<?= $task->taskId ?>" <?php if ($task->done) { echo 'checked="true"'; } else { echo ''; } ?> />
 								<label class="black-text" for="task-checkbox_<?= $task->taskId ?>" contenteditable="true"><?= $task->description ?></label>
+								<i class="material-icons right list-id_<?= $list->listId ?>">menu</i>
 							</li>
 						<?php endforeach; ?>
+						<li>
+							<a href="#" class="black-text">+ Task</a>
+						</li>
 					</ul>
 					<?php } ?>
 				</div>
