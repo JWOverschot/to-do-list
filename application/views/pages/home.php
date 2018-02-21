@@ -51,14 +51,14 @@ endforeach;
 			<div class="card yellow darken-1">
 				<div class="card-content black-text" id="list_<?= $list->listId ?>">
 					<div class="row">
-						<span class="card-title col s10" contenteditable="true"><?= $list->title;?></span>
+						<span id="title-list_<?= $list->listId ?>" class="card-title col s10" contenteditable="true"><?= $list->title;?></span>
 						<a class="black-text col s2 dropdown-button" href='#' data-activates='dropdown_<?= $list->listId ?>'><i class="material-icons waves-effect round">more_vert</i></a>
 						<ul id='dropdown_<?= $list->listId ?>' class='dropdown-content'>
 							<li><a href="<?= base_url()?>delete/<?= $list->listId ?>">Delete</a></li>
 						</ul>
 					</div>
-					<?php if ($list->tasks[0]->taskId != null ) { ?>
 					<ul>
+						<?php if ($list->tasks[0]->taskId != null ) { ?>
 						<?php foreach ($list->tasks as $task): ?>
 							<li id="task_<?= $task->taskId ?>">
 								<input type="checkbox" class="filled-in" id="task-checkbox_<?= $task->taskId ?>" <?php if ($task->done) { echo 'checked="true"'; } else { echo ''; } ?> />
@@ -66,11 +66,11 @@ endforeach;
 								<i class="material-icons right list-id_<?= $list->listId ?>">menu</i>
 							</li>
 						<?php endforeach; ?>
+						<?php } ?>
 						<li>
-							<a href="#" class="black-text">+ Task</a>
+							<a href="#" class="black-text add-new-task">+ Task</a>
 						</li>
 					</ul>
-					<?php } ?>
 				</div>
 			</div>
 		</div>
@@ -83,3 +83,12 @@ endforeach;
 		<?php $this->load->view('pages/create.php'); ?>
 	</div>
 </div>
+
+<!-- Edit forms -->
+<?= form_open('pages/edit', array('id' => 'ajax-contact', 'style' => 'display:none;')); ?>
+	<input type="text" id="edit-list-title" name="ListTitle" />
+	<input type="number" id="edit-list-id" name="ListID" />
+  	<input type="submit" name="submit" id="submit" />
+<?= form_close(); ?>
+
+<div id="form-messages"></div>

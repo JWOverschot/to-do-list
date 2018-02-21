@@ -4,7 +4,7 @@ class Pages extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('ListModuel');
+		$this->load->model('ListModule');
 		$this->load->helper('url_helper');
 	}
 
@@ -14,7 +14,7 @@ class Pages extends CI_Controller {
 			show_404();
 		}
 		else {
-			$data['lists'] = $this->ListModuel->get_lists();
+			$data['lists'] = $this->ListModule->get_lists();
 
 			$this->load->view('templates/header');
 			$this->load->view('pages/' . $page, $data);
@@ -22,20 +22,28 @@ class Pages extends CI_Controller {
 		}
 	}
 
-	public function create($page = 'create')
+	public function create()
 	{
 		$this->form_validation->set_rules('title', 'Title', 'required');
 
 		if ($this->form_validation->run() !== FALSE)
 		{
-			$this->ListModuel->set_list();
+			$this->ListModule->set_list();
 			header('Location:'.base_url());
 		}
 	}
 
 	public function delete($id)
 	{
-		$this->ListModuel->delete_list($id);
+		$this->ListModule->delete_list($id);
 		header('Location:'.base_url());
+	}
+
+	public function edit()
+	{
+		$listId = $this->input->post('ListID');
+		$listTitle = $this->input->post('ListTitle');
+
+		$this->ListModule->edit_list($listId, $listTitle);
 	}
 }

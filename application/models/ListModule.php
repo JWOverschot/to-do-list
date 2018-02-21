@@ -1,5 +1,5 @@
 <?php
-class ListModuel extends CI_Model {
+class ListModule extends CI_Model {
 	public function __construct()
 	{
 		$this->load->database();
@@ -17,13 +17,7 @@ class ListModuel extends CI_Model {
 
 	public function set_list()
 	{
-		//$this->load->helper('url');
-
-		//$this->db->select('ListID');
-		//$this->db->order_by(1, 'desc');
-
-		//$query = $this->db->get('lists',1);
-
+		// TODO: move post calls to controller
 		$query = "SELECT AUTO_INCREMENT FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'todo_db' AND TABLE_NAME = 'lists'";
 		$result = $this->db->query($query);
 		$next_listId = intval($result->result_array()[0]['AUTO_INCREMENT']);
@@ -58,8 +52,18 @@ class ListModuel extends CI_Model {
 		$this->db->delete('tasks');	
 	}
 
+	public function edit_list($listId, $listTitle)
+	{
+		$data = array(
+			'ListID' => trim($listId),
+			'ListTitle'  => trim($listTitle)
+		);
+		var_dump($data);
+		$this->db->replace('lists', $data);
+	}
+
 	public function delete_empty_tasks()
 	{
-		// when a task has no description it has to be deleted
+		// TODO: when a task has no description it has to be deleted
 	}
 }
