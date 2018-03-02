@@ -3,6 +3,18 @@ $(document).ready( () => {
 	if ($('.modal').length > 0) {
 		$('.modal').modal();
 	}
+	// make text line-through when checkbox is checked
+	if ($('input[type="checkbox"]:checked')) {
+		$('input[type="checkbox"]:checked').nextAll($("p.label")).css('text-decoration', 'line-through');
+	}
+	$('input[type="checkbox"]').on('click', (event) => {
+		if ($(event.target).is(':checked')) {
+			$('input[type="checkbox"]:checked').nextAll($("p.label")).css('text-decoration', 'line-through');
+		}
+		else {
+			$('input[type="checkbox"]:not(:checked)').nextAll($("p.label")).css('text-decoration', '');
+		}
+	});
 	// aligenment for more buttons to the right
 	if ($('.dropdown-button').length > 0) {
 		$('.dropdown-button').dropdown({
@@ -33,37 +45,57 @@ $(document).ready( () => {
 			<i class="material-icons right list-id_<?= $list->listId ?>">menu</i>
 			</li>`);
 	});
+	// forms
+	function sendForm(form) {
+		$(form).trigger("submit");
+		$(form).submit(function(event) {
+			// Stop the browser from submitting the form.
+			event.preventDefault();
 
+			// Serialize the form data.
+			var formData = $(form).serialize();
+
+			// Submit the form using AJAX.
+			$.ajax({
+				type: 'POST',
+				url: $(form).attr('action'),
+				data: formData
+			}).done(function(response) {
+				//console.info('You done did');
+			}).fail(function(data) {
+				console.error('You did done failed');
+			});
+		});
+	}
+	// submit changed title to db with ajax
 	$(".card-title").on('click blur focus', (event) => {
 		if ($("#edit-list-title").val() != $(event.currentTarget).html()) {
-			//debugger;
+
 			$("#edit-list-title").val($(event.currentTarget).html());
 			$("#edit-list-id").val(event.currentTarget.id.split('_')[1]);
-			
 			// Get the form.
-			var form = $('#ajax-contact');
-
-			// Get the messages div.
-			var formMessages = $('#form-messages');
-			$(form).trigger("submit");
-			$(form).submit(function(event) {
-				// Stop the browser from submitting the form.
-				event.preventDefault();
-
-				// Serialize the form data.
-				var formData = $(form).serialize();
-
-				// Submit the form using AJAX.
-				$.ajax({
-					type: 'POST',
-					url: $(form).attr('action'),
-					data: formData
-				}).done(function(response) {
-				  	console.info('You done did');
-				}).fail(function(data) {
-				    console.error('You did done failed');
-				});
-			});
+			sendForm($('#title-form'));
 		}
+	});
+
+	// submit changed task description to db with ajax
+	$('ul.task-list li').on('click blur focus', (event) => {
+		var taskListID = event.currentTarget.parentElement.id;
+		var taskID = event.currentTarget.id;
+		var taskLabel = $('#' + taskID + ' p.label');
+
+		$("#edit-task-description").val(taskLabel.html());
+		$("#edit-task-list-id").val(taskListID.split('_')[1]);
+		$("#edit-task-id").val(taskID.split('_')[1]);
+
+		if ($('#' + taskID + ' input[type="checkbox"]').is(':checked')) {
+			$("#edit-task-done").val(1);
+		}
+		else {
+			$("#edit-task-done").val(0);
+		}
+		
+		// Get the form.
+		sendForm($('#task-form'));
 	});
 });

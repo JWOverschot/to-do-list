@@ -62,6 +62,18 @@ class ListModule extends CI_Model {
 		$this->db->replace('lists', $data);
 	}
 
+	public function edit_task($taskDescription, $taskId, $listId, $taskDone)
+	{
+		$data = array(
+			'ListID_FK' => trim($listId),
+			'TaskID' => trim($taskId),
+			'TaskDescription' => trim($taskDescription),
+			'TaskDone' => trim($taskDone)
+		);
+		var_dump($data);
+		$this->db->replace('tasks', $data);
+	}
+
 	public function delete_empty_tasks()
 	{
 		// TODO: when a task has no description it has to be deleted

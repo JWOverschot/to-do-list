@@ -46,4 +46,15 @@ class Pages extends CI_Controller {
 
 		$this->ListModule->edit_list($listId, $listTitle);
 	}
+
+	public function editTask()
+	{
+		// TODO: detect if its description change or status
+		$taskDescription = $this->input->post('TaskDescription');
+		$taskId = $this->input->post('TaskID');
+		$listId = $this->input->post('ListID');
+		$taskDone = $this->input->post('TaskDone');
+
+		$this->ListModule->edit_task($taskDescription, $taskId, $listId, $taskDone);
+	}
 }

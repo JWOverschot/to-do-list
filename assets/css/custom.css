@@ -1,5 +1,6 @@
-[type="checkbox"]:checked+label {
-	text-decoration: line-through;
+p.label {
+	display: inline;
+    vertical-align: top;
 }
 
 a i.round {

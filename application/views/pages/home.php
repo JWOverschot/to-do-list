@@ -57,12 +57,13 @@ endforeach;
 							<li><a href="<?= base_url()?>delete/<?= $list->listId ?>">Delete</a></li>
 						</ul>
 					</div>
-					<ul>
+					<ul class="task-list" id="task-list-id_<?= $list->listId ?>">
 						<?php if ($list->tasks[0]->taskId != null ) { ?>
 						<?php foreach ($list->tasks as $task): ?>
 							<li id="task_<?= $task->taskId ?>">
 								<input type="checkbox" class="filled-in" id="task-checkbox_<?= $task->taskId ?>" <?php if ($task->done) { echo 'checked="true"'; } else { echo ''; } ?> />
-								<label class="black-text" for="task-checkbox_<?= $task->taskId ?>" contenteditable="true"><?= $task->description ?></label>
+								<label for="task-checkbox_<?= $task->taskId ?>"></label>
+								<p class="black-text label" id="task-checkbox_<?= $task->taskId ?>" contenteditable="true"><?= $task->description ?></p>
 								<i class="material-icons right list-id_<?= $list->listId ?>">menu</i>
 							</li>
 						<?php endforeach; ?>
@@ -85,10 +86,16 @@ endforeach;
 </div>
 
 <!-- Edit forms -->
-<?= form_open('pages/edit', array('id' => 'ajax-contact', 'style' => 'display:none;')); ?>
+<?= form_open('pages/edit', array('id' => 'title-form', 'style' => 'display:none;')); ?>
 	<input type="text" id="edit-list-title" name="ListTitle" />
 	<input type="number" id="edit-list-id" name="ListID" />
-  	<input type="submit" name="submit" id="submit" />
+  	<input type="submit" name="submit" id="submit-list-form" />
 <?= form_close(); ?>
 
-<div id="form-messages"></div>
+<?= form_open('pages/editTask', array('id' => 'task-form', 'style' => 'display:none;')); ?>
+	<input type="text" id="edit-task-description" name="TaskDescription" />
+	<input type="number" id="edit-task-done" name="TaskDone" />
+	<input type="number" id="edit-task-id" name="TaskID" />
+	<input type="number" id="edit-task-list-id" name="ListID" />
+  	<input type="submit" name="submit" id="submit-task-form" />
+<?= form_close(); ?>
