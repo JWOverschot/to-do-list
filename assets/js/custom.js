@@ -79,7 +79,7 @@ $(document).ready( () => {
 	});
 
 	// submit changed task description to db with ajax
-	$('ul.task-list li').on('click blur focus', (event) => {
+	$('ul.task-list li').on('click blur focus keypress', (event) => {
 		var taskListID = event.currentTarget.parentElement.id;
 		var taskID = event.currentTarget.id;
 		var taskLabel = $('#' + taskID + ' p.label');
