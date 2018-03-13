@@ -74,8 +74,15 @@ class ListModule extends CI_Model {
 		$this->db->replace('tasks', $data);
 	}
 
-	public function delete_empty_tasks()
+	public function set_task($taskData)
 	{
-		// TODO: when a task has no description it has to be deleted
+		$this->db->insert('tasks', $taskData);
+	}
+	public function get_task_increment_id()
+	{
+		$query = "SELECT AUTO_INCREMENT FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'todo_db' AND TABLE_NAME = 'tasks'";
+		$result = $this->db->query($query);
+		$id = intval($result->result_array()[0]['AUTO_INCREMENT']);
+		echo $id;
 	}
 }

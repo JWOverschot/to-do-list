@@ -39,11 +39,39 @@ $(document).ready( () => {
 	});
 	// add a new task html element
 	$('.add-new-task').on('click', (event) => {
-		$(event.currentTarget.parentElement).before(`<li>
-			<input type="checkbox" class="filled-in" />
-			<label class="black-text" contenteditable="true"></label>
-			<i class="material-icons right list-id_<?= $list->listId ?>">menu</i>
-			</li>`);
+		var currentListID = event.target.parentElement.parentElement.id.split('_')[1];
+		var nextTaskID;
+		$.get("pages/getTaskIncrementID", (data, status) => {
+			if (status == 'success') {
+				nextTaskID = data;
+
+				$(event.currentTarget.parentElement).before(`<li id="task_${nextTaskID}">
+					<input type="checkbox" class="filled-in" id="task-checkbox_${nextTaskID}">
+					<label for="task-checkbox_${nextTaskID}"></label>
+					<p class="black-text label" id="task-label_${nextTaskID}" contenteditable="true"></p>
+					<a class="red-text" href="deleteTask/${nextTaskID}"><i class="material-icons right task-id_${nextTaskID}">remove_circle_outline</i></a>
+					</li>`
+				);
+				$('#task-label_' + nextTaskID).get(0).focus()
+
+				$.ajax({
+					type: 'POST',
+					url: 'pages/createTask',
+					data: {
+						'ListID_FK': currentListID,
+						'TaskSortIndex': $('ul#task-list-id_' + currentListID + ' li').length -1
+					}
+				}).done(function(response) {
+					//console.info('You done did');
+				}).fail(function(data) {
+					console.error('You did done failed');
+				});
+			}
+			else {
+				return;
+			}
+		});
+			
 	});
 	// forms
 	function sendForm(form) {
