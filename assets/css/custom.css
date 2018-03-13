@@ -1,6 +1,6 @@
 p.label {
 	display: inline;
-    vertical-align: top;
+	vertical-align: top;
 }
 
 a i.round {
@@ -18,6 +18,11 @@ ul.dropdown-content {
 }
 
 li i.material-icons {
+	cursor: pointer;
+	text-decoration: none !important;
+}
+
+/*li i.material-icons {
 	cursor: move;
 	opacity: 0;
 	transition: opacity .3s ease-out;
@@ -25,7 +30,7 @@ li i.material-icons {
 
 li i.material-icons.hover {
 	opacity: 1;
-}
+	}*/
 
 a:hover {
 	color: #26a69a !important;
