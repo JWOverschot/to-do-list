@@ -22,13 +22,13 @@ $(document).ready( () => {
 		});
 	}
 	// add task move icons to list
-	$('.card .card-content').on('mouseenter', (event) => {
-		$('li i.list-id_' + event.toElement.id.split('_')[1]).addClass('hover');
-	});
-	// remove task move icons to list
-	$('.card .card-content').on('mouseout', (event) => {
-		$('li i.list-id_' + event.toElement.id.split('_')[1]).removeClass('hover');
-	});
+	// $('.card .card-content').on('mouseenter', (event) => {
+	// 	$('li i.list-id_' + event.toElement.id.split('_')[1]).addClass('hover');
+	// });
+	// // remove task move icons to list
+	// $('.card .card-content').on('mouseout', (event) => {
+	// 	$('li i.list-id_' + event.toElement.id.split('_')[1]).removeClass('hover');
+	// });
 	// add more input fields on creating tasks
 	$('#add-task-input').on('click', (event) => {
 		var nextID = parseInt($('.create-list-task').sort().reverse()[0].id.split('_')[1]) + 1;
