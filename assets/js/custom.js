@@ -107,23 +107,34 @@ $(document).ready( () => {
 	});
 
 	// submit changed task description to db with ajax
-	$('ul.task-list li').on('click blur focus keypress', (event) => {
+	$('ul.task-list').on('click blur focus keypress', 'li', (event) => {
+		if (event.type === 'keypress') {
+			if (event.keyCode === 13) {
+				event.preventDefault();
+				$(event.target).blur();
+			}
+			else {
+				return;
+			}	
+		}
 		var taskListID = event.currentTarget.parentElement.id;
 		var taskID = event.currentTarget.id;
-		var taskLabel = $('#' + taskID + ' p.label');
+		if (taskID !== '') {
+			var taskLabel = $('#' + taskID + ' p.label');
 
-		$("#edit-task-description").val(taskLabel.html());
-		$("#edit-task-list-id").val(taskListID.split('_')[1]);
-		$("#edit-task-id").val(taskID.split('_')[1]);
+			$("#edit-task-description").val(taskLabel.html());
+			$("#edit-task-list-id").val(taskListID.split('_')[1]);
+			$("#edit-task-id").val(taskID.split('_')[1]);
 
-		if ($('#' + taskID + ' input[type="checkbox"]').is(':checked')) {
-			$("#edit-task-done").val(1);
+			if ($('#' + taskID + ' input[type="checkbox"]').is(':checked')) {
+				$("#edit-task-done").val(1);
+			}
+			else {
+				$("#edit-task-done").val(0);
+			}
+
+			// Get the form.
+			sendForm($('#task-form'));
 		}
-		else {
-			$("#edit-task-done").val(0);
-		}
-		
-		// Get the form.
-		sendForm($('#task-form'));
 	});
 });
