@@ -57,6 +57,13 @@ class Pages extends CI_Controller {
 
 		$this->ListModule->edit_task($taskDescription, $taskId, $listId, $taskDone);
 	}
+
+	public function deleteTask($id)
+	{
+		$this->ListModule->delete_task($id);
+		header('Location:'.base_url());
+	}
+
 	public function getTaskIncrementID()
 	{
 		return $this->ListModule->get_task_increment_id();

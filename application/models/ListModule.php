@@ -78,6 +78,13 @@ class ListModule extends CI_Model {
 	{
 		$this->db->insert('tasks', $taskData);
 	}
+
+	public function delete_task($id)
+	{
+		$this->db->where('TaskID', $id);
+		$this->db->delete('tasks');
+	}
+
 	public function get_task_increment_id()
 	{
 		$query = "SELECT AUTO_INCREMENT FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'todo_db' AND TABLE_NAME = 'tasks'";

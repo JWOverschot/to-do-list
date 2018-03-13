@@ -63,8 +63,9 @@ endforeach;
 							<li id="task_<?= $task->taskId ?>">
 								<input type="checkbox" class="filled-in" id="task-checkbox_<?= $task->taskId ?>" <?php if ($task->done) { echo 'checked="true"'; } else { echo ''; } ?> />
 								<label for="task-checkbox_<?= $task->taskId ?>"></label>
-								<p class="black-text label" id="task-checkbox_<?= $task->taskId ?>" contenteditable="true"><?= $task->description ?></p>
-								<i class="material-icons right list-id_<?= $list->listId ?>">menu</i>
+								<p class="black-text label" id="task-label_<?= $task->taskId ?>" contenteditable="true"><?= $task->description ?></p>
+								<a class="red-text" href="<?= base_url()?>deleteTask/<?= $task->taskId ?>"><i class="material-icons right task-id_<?= $task->taskId ?>">remove_circle_outline</i></a>
+								
 							</li>
 						<?php endforeach; ?>
 						<?php } ?>
