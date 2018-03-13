@@ -17,30 +17,17 @@ class ListModule extends CI_Model {
 
 	public function set_list()
 	{
-		// TODO: move post calls to controller
-		$query = "SELECT AUTO_INCREMENT FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'todo_db' AND TABLE_NAME = 'lists'";
-		$result = $this->db->query($query);
-		$next_listId = intval($result->result_array()[0]['AUTO_INCREMENT']);
-
 		$data = array(
 			'ListTitle' => $this->input->post('title'),
 		);
 		$this->db->insert('lists', $data);
+	}
 
-		for ($n=1; $n <= $n && $this->input->post('task_'.$n) != null; $n++) {
-			var_dump($this->input->post('task_'.$n));
-			if ( $this->input->post('task_'.$n) != null) {
-				$taskData = array(
-					'TaskDescription' => $this->input->post('task_'.$n),
-					'TaskSortIndex' => $n,
-					'ListID_FK' => $next_listId
-				);
-				$this->db->insert('tasks', $taskData);
-			}
-			else {
-				$n = $n+1;
-			}
-		}
+	public function get_list_increment_id()
+	{
+		$query = "SELECT AUTO_INCREMENT FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'todo_db' AND TABLE_NAME = 'lists'";
+		$result = $this->db->query($query);
+		return intval($result->result_array()[0]['AUTO_INCREMENT']);
 	}
 
 	public function delete_list($id)

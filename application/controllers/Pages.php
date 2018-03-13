@@ -28,7 +28,23 @@ class Pages extends CI_Controller {
 
 		if ($this->form_validation->run() !== FALSE)
 		{
+			$next_listId = $this->ListModule->get_list_increment_id();
 			$this->ListModule->set_list();
+
+			for ($n=1; $n <= $n && $this->input->post('task_'.$n) != null; $n++) {
+				if ($this->input->post('task_'.$n) != null) {
+					$taskData = array(
+						'TaskDescription' => $this->input->post('task_'.$n),
+						'TaskSortIndex' => $n,
+						'ListID_FK' => $next_listId
+					);
+					$this->ListModule->set_task($taskData);
+				}
+				else {
+					$n = $n+1;
+				}
+			}
+
 			header('Location:'.base_url());
 		}
 	}
