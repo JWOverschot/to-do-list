@@ -15,10 +15,11 @@ class ListList {
 }
 
 class Task {
-	function Task($description, $taskId, $done) {
+	function Task($description, $taskId, $done, $sortIndex) {
 		$this->description = $description;
 		$this->taskId = $taskId;
 		$this->done = $done;
+		$this->sortIndex = $sortIndex;
 	}
 }
 
@@ -29,7 +30,7 @@ foreach ($lists as $list):
 		foreach ($lists as $task) {
 				//var_dump($task);
 			if ($currentList == $task['ListID']) {
-				array_push($tasksArray, new Task($task['TaskDescription'], $task['TaskID'], $task['TaskDone']));
+				array_push($tasksArray, new Task($task['TaskDescription'], $task['TaskID'], $task['TaskDone'], $task['TaskSortIndex']));
 			}
 		}
 
@@ -60,7 +61,7 @@ endforeach;
 					<ul class="task-list" id="task-list-id_<?= $list->listId ?>">
 						<?php if ($list->tasks[0]->taskId != null ) { ?>
 						<?php foreach ($list->tasks as $task): ?>
-							<li id="task_<?= $task->taskId ?>">
+							<li id="task_<?= $task->taskId ?>" class="sort-index_<?= $task->sortIndex ?>">
 								<input type="checkbox" class="filled-in" id="task-checkbox_<?= $task->taskId ?>" <?php if ($task->done) { echo 'checked="true"'; } else { echo ''; } ?> />
 								<label for="task-checkbox_<?= $task->taskId ?>"></label>
 								<p class="black-text label" id="task-label_<?= $task->taskId ?>" contenteditable="true"><?= $task->description ?></p>
@@ -98,5 +99,6 @@ endforeach;
 	<input type="number" id="edit-task-done" name="TaskDone" />
 	<input type="number" id="edit-task-id" name="TaskID" />
 	<input type="number" id="edit-task-list-id" name="ListID" />
+	<input type="number" id="edit-task-sort-index" name="TaskSortIndex" />
   	<input type="submit" name="submit" id="submit-task-form" />
 <?= form_close(); ?>

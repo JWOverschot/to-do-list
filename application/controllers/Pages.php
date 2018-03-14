@@ -70,8 +70,9 @@ class Pages extends CI_Controller {
 		$taskId = $this->input->post('TaskID');
 		$listId = $this->input->post('ListID');
 		$taskDone = $this->input->post('TaskDone');
+		$taskSortIndex = $this->input->post('TaskSortIndex');
 
-		$this->ListModule->edit_task($taskDescription, $taskId, $listId, $taskDone);
+		$this->ListModule->edit_task($taskDescription, $taskId, $listId, $taskDone, $taskSortIndex);
 	}
 
 	public function deleteTask($id)
@@ -90,7 +91,7 @@ class Pages extends CI_Controller {
 		$taskData = array(
 			'TaskDescription' => '',
 			'TaskSortIndex' => $this->input->post('TaskSortIndex'),
-			'ListID_FK' => $taskId = $this->input->post('ListID_FK')
+			'ListID_FK' => $this->input->post('ListID_FK')
 		);
 
 		$this->ListModule->set_task($taskData);

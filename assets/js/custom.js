@@ -51,9 +51,8 @@ $(document).ready( () => {
 					<p class="black-text label" id="task-label_${nextTaskID}" contenteditable="true"></p>
 					<a class="red-text" href="deleteTask/${nextTaskID}"><i class="material-icons right task-id_${nextTaskID}">remove_circle_outline</i></a>
 					</li>`
-				);
+					);
 				$('#task-label_' + nextTaskID).get(0).focus()
-
 				$.ajax({
 					type: 'POST',
 					url: 'pages/createTask',
@@ -71,7 +70,7 @@ $(document).ready( () => {
 				return;
 			}
 		});
-			
+
 	});
 	// forms
 	function sendForm(form) {
@@ -119,12 +118,21 @@ $(document).ready( () => {
 		}
 		var taskListID = event.currentTarget.parentElement.id;
 		var taskID = event.currentTarget.id;
+		var taskSortIndex = 0;
+
 		if (taskID !== '') {
 			var taskLabel = $('#' + taskID + ' p.label');
+
+			event.currentTarget.classList.forEach((e) => {
+				if(e.split('_')[0] == 'sort-index') {
+					taskSortIndex = e.split('_')[1];
+				}
+			});
 
 			$("#edit-task-description").val(taskLabel.html());
 			$("#edit-task-list-id").val(taskListID.split('_')[1]);
 			$("#edit-task-id").val(taskID.split('_')[1]);
+			$("#edit-task-sort-index").val(taskSortIndex);
 
 			if ($('#' + taskID + ' input[type="checkbox"]').is(':checked')) {
 				$("#edit-task-done").val(1);

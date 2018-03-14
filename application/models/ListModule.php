@@ -49,13 +49,14 @@ class ListModule extends CI_Model {
 		$this->db->replace('lists', $data);
 	}
 
-	public function edit_task($taskDescription, $taskId, $listId, $taskDone)
+	public function edit_task($taskDescription, $taskId, $listId, $taskDone, $taskSortIndex)
 	{
 		$data = array(
 			'ListID_FK' => trim($listId),
 			'TaskID' => trim($taskId),
 			'TaskDescription' => trim($taskDescription),
-			'TaskDone' => trim($taskDone)
+			'TaskDone' => trim($taskDone),
+			'TaskSortIndex' => trim($taskSortIndex)
 		);
 		var_dump($data);
 		$this->db->replace('tasks', $data);
