@@ -70,12 +70,27 @@ $(document).ready( () => {
 				return;
 			}
 		});
-
 	});
+	// extract values from json
+	function extractResponseData(response){
+		response = JSON.parse(response);
+		var responseArray = [];
+		// specific for ListID response
+		for (var i = 0; $('.card').parent().length > i; i++) {
+					$('.card').parent()[i].style.display = 'block';
+				}
+		if (response[0]) {
+			if (response[0].ListID) {
+				response.forEach((ele) => {responseArray.push(ele.ListID)});
+				responseArray.forEach((ele) => {
+					$('#list_' + ele).parent().parent().css('display', 'none');
+				});
+			}
+		}
+	}
 	// forms
 	function sendForm(form) {
-		$(form).trigger("submit");
-		$(form).submit(function(event) {
+		$(form).one('submit', function(event) {
 			// Stop the browser from submitting the form.
 			event.preventDefault();
 
@@ -88,11 +103,14 @@ $(document).ready( () => {
 				url: $(form).attr('action'),
 				data: formData
 			}).done(function(response) {
-				//console.info('You done did');
+				if (response) {
+					extractResponseData(response);
+				}
 			}).fail(function(data) {
 				console.error('You did done failed');
 			});
 		});
+		$(form).trigger("submit");
 	}
 	// submit changed title to db with ajax
 	$(".card-title").on('click blur focus', (event) => {
@@ -144,5 +162,10 @@ $(document).ready( () => {
 			// Get the form.
 			sendForm($('#task-form'));
 		}
+	});
+
+	// submit search form
+	$("#search").on('keyup', (event) => {
+		sendForm($('#search-form'));
 	});
 });

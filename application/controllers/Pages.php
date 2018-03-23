@@ -96,4 +96,10 @@ class Pages extends CI_Controller {
 
 		$this->ListModule->set_task($taskData);
 	}
+
+	public function filterList() {
+		$query = $this->input->post('query');
+		
+		$this->ListModule->get_filtered_list($query);
+	}
 }

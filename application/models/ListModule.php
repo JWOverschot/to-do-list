@@ -80,4 +80,12 @@ class ListModule extends CI_Model {
 		$id = intval($result->result_array()[0]['AUTO_INCREMENT']);
 		echo $id;
 	}
+
+	public function get_filtered_list($serachQuery) {
+		$this->db->select('ListID');
+		$this->db->from('lists');
+		$this->db->not_like('ListTitle', $serachQuery);
+		$query = $this->db->get();
+		echo json_encode($query->result_array());
+	}
 }

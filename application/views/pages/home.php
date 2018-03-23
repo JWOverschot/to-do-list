@@ -1,4 +1,15 @@
 <h1>TO-DO Lists</h1>
+<nav>
+	<div class="nav-wrapper">
+		<?= form_open('pages/filterList', array('id' => 'search-form')); ?>
+			<div class="input-field">
+				<input id="search" type="search" class="white" name="query">
+				<label class="label-icon" for="search"><i class="material-icons black-text search">search</i></label>
+				<i class="material-icons">close</i>
+			</div>
+		<?= form_close(); ?>
+	</div>
+</nav>
 
 <?php
 $currentList = 0;

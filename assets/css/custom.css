@@ -39,3 +39,12 @@ a:hover {
 li:last-child {
 	margin: 1.5px 0 1.5px 0;
 }
+
+nav .nav-wrapper i.search{
+	line-height: 44px;
+}
+
+.nav-wrapper .input-field input[type=search] {
+	font-size: x-large;
+	color: black;
+}
