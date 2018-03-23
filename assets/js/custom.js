@@ -77,8 +77,8 @@ $(document).ready( () => {
 		var responseArray = [];
 		// specific for ListID response
 		for (var i = 0; $('.card').parent().length > i; i++) {
-					$('.card').parent()[i].style.display = 'block';
-				}
+			$('.card').parent()[i].style.display = 'block';
+		}
 		if (response[0]) {
 			if (response[0].ListID) {
 				response.forEach((ele) => {responseArray.push(ele.ListID)});
@@ -87,6 +87,15 @@ $(document).ready( () => {
 				});
 			}
 		}
+	}
+	// Check if json is correct
+	function IsJsonString(str) {
+		try {
+			JSON.parse(str);
+		} catch (e) {
+			return false;
+		}
+		return true;
 	}
 	// forms
 	function sendForm(form) {
@@ -103,13 +112,13 @@ $(document).ready( () => {
 				url: $(form).attr('action'),
 				data: formData
 			}).done(function(response) {
-				if (response) {
+				if (response && IsJsonString(response)) {
 					extractResponseData(response);
-				}
-			}).fail(function(data) {
-				console.error('You did done failed');
-			});
+			}
+		}).fail(function(data) {
+			console.error('You did done failed');
 		});
+	});
 		$(form).trigger("submit");
 	}
 	// submit changed title to db with ajax
